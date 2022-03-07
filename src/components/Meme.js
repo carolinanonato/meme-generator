@@ -25,7 +25,7 @@ function Meme() {
                 <input className="input" placeholder="Bottom text" type="text" />
                 <button onClick={getMemeImage} className='button'>Get a new image 🖼️</button>
             </div>
-            <img src={memeImage} alt={""} />
+            <img src={memeImage} alt={""} className="meme--image" />
         </main>
     )
 }
