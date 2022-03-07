@@ -1,33 +1,48 @@
-import React, { useState } from 'react'
-import memesData from '../memesData.js'
+import React from "react"
+import memesData from "../memesData.js"
 
+export default function Meme() {
 
-function Meme() {
-
-
-    const [memeImage, setMemeImage] = useState('')
-
+    const [meme, setMeme] = React.useState({
+        topText: "",
+        bottomText: "",
+        randomImage: "http://i.imgflip.com/1bij.jpg"
+    })
+    const [allMemeImages, setAllMemeImages] = React.useState(memesData)
 
 
     function getMemeImage() {
-        const memesArray = memesData.data.memes
+        const memesArray = allMemeImages.data.memes
         const randomNumber = Math.floor(Math.random() * memesArray.length)
-        setMemeImage(memesArray[randomNumber].url)
+        const url = memesArray[randomNumber].url
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            randomImage: url
+        }))
 
     }
-
-
 
     return (
         <main>
             <div className="form">
-                <input className="input" placeholder="Top text" type="text" />
-                <input className="input" placeholder="Bottom text" type="text" />
-                <button onClick={getMemeImage} className='button'>Get a new image 🖼️</button>
+                <input
+                    type="text"
+                    placeholder="Top text"
+                    className="form--input"
+                />
+                <input
+                    type="text"
+                    placeholder="Bottom text"
+                    className="form--input"
+                />
+                <button
+                    className="button"
+                    onClick={getMemeImage}
+                >
+                    Get a new meme image 🖼
+                </button>
             </div>
-            <img src={memeImage} alt={""} className="meme--image" />
+            <img src={meme.randomImage} className="meme--image" />
         </main>
     )
 }
-
-export default Meme
